@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <style>
+      body {
+        font-family: 'Segoe UI', sans-serif;
+        background: #f1f4f9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+      }
+      .login-box {
+        background: #fff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+      }
+      .login-box img {
+        width: 120px;
+        margin-bottom: 20px;
+      }
+      .login-box h2 {
+        margin-bottom: 20px;
+        color: #333;
+      }
+      input {
+        width: 100%;
+        padding: 12px;
+        margin: 8px 0;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 14px;
+      }
+      button {
+        background: #007bff;
+        color: #fff;
+        border: none;
+        padding: 12px;
+        width: 100%;
+        border-radius: 8px;
+        font-size: 15px;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+      button:hover {
+        background: #0056b3;
+      }
+      .link {
+        display: block;
+        margin-top: 12px;
+        color: #007bff;
+        text-decoration: none;
+        font-size: 14px;
+      }
+      #msg {
+        margin-top: 15px;
+        font-weight: bold;
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-box">
+      <img src="https://drive.google.com/uc?export=view&id=1JPRcA53Bv9PIMlhvsSNEZDK_XMfSgjYQ" alt="Logo">
+      <h2>Employee Login</h2>
+      <input type="text" id="empID" placeholder="Employee ID" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <button onclick="login()">Login</button>
+      <a class="link" href="https://wa.me/917382752900?text=Hello%2C%20I%20forgot%20my%20login%20password%20for%20the%20lead%20form." target="_blank">Forgot Password?</a>
+      <p id="msg"></p>
+    </div>
+    <script>
+      function login() {
+        const id = document.getElementById("empID").value;
+        const pwd = document.getElementById("password").value;
+        google.script.run.withSuccessHandler(function(result) {
+          if (result.success) {
+            document.getElementById("msg").style.color = "green";
+            document.getElementById("msg").innerText = "Login Success";
+            sessionStorage.setItem("agentID", id);
+            setTimeout(() => {
+              window.location.href = "?page=form";
+            }, 1000);
+          } else {
+            document.getElementById("msg").innerText = "Invalid Credentials";
+          }
+        }).checkLogin(id, pwd);
+      }
+    </script>
+  </body>
+</html>

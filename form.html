@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <style>
+      body {
+        font-family: 'Segoe UI', sans-serif;
+        background: #f1f4f9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 30px;
+      }
+      .form-box {
+        background: #fff;
+        padding: 30px;
+        border-radius: 16px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        width: 100%;
+        max-width: 600px;
+      }
+      .form-box h2 {
+        margin-bottom: 20px;
+        text-align: center;
+        color: #333;
+      }
+      .form-box img {
+        display: block;
+        margin: 0 auto 20px auto;
+        width: 100px;
+      }
+      label {
+        display: block;
+        margin: 12px 0 6px;
+        font-weight: 500;
+      }
+      input, select {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+      }
+      button {
+        margin-top: 20px;
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form-box">
+      <img src="https://drive.google.com/uc?export=view&id=1JPRcA53Bv9PIMlhvsSNEZDK_XMfSgjYQ" alt="Logo">
+      <h2>Lead Capture Form</h2>
+      <form onsubmit="submitForm(); return false;">
+        <label>Timestamp</label>
+        <input type="text" id="timestamp" disabled>
+        <label>Agent ID</label>
+        <input type="text" id="agentID" disabled>
+        <label>Email Address</label>
+        <input type="email" id="email" required>
+        <label>Customer Name</label>
+        <input type="text" id="name" required>
+        <label>Customer Mobile Number</label>
+        <input type="text" id="mobile" required>
+        <label>Alternate Mobile Number</label>
+        <input type="text" id="altMobile">
+        <label>Customer Employment</label>
+        <input type="text" id="employment" required>
+        <label>Customer Language</label>
+        <input type="text" id="language" required>
+        <label>Already Have a Credit Card?</label>
+        <select id="hasCreditCard" required>
+          <option value="">-- Select --</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+        <button type="submit">Submit Lead</button>
+      </form>
+    </div>
+    <script>
+      document.getElementById("timestamp").value = new Date().toLocaleString();
+      document.getElementById("agentID").value = sessionStorage.getItem("agentID");
+      function submitForm() {
+        const lead = {
+          agentID: document.getElementById("agentID").value,
+          email: document.getElementById("email").value,
+          name: document.getElementById("name").value,
+          mobile: document.getElementById("mobile").value,
+          altMobile: document.getElementById("altMobile").value,
+          employment: document.getElementById("employment").value,
+          language: document.getElementById("language").value,
+          hasCreditCard: document.getElementById("hasCreditCard").value,
+        };
+        google.script.run.withSuccessHandler(() => {
+          window.location.href = "https://extp.in/BJyIeR";
+        }).saveLead(lead);
+      }
+    </script>
+  </body>
+</html>
